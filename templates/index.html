@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Beautiful To-Do App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-check-circle" aria-hidden="true"></i>
+            <span>TaskFlow</span>
+        </div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+        </button>
+    </header>
+
+    <main>
+        <div class="task-form-container">
+            <i class="fas fa-tasks task-input-icon" aria-hidden="true"></i>
+            <input type="text" id="taskInput" class="task-input" placeholder="Add a new task...">
+            <button class="add-btn" id="addTaskBtn" aria-label="Add task" title="Add task">
+                <i class="fas fa-plus" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div class="tasks-container">
+            <div class="tasks-header">
+                <h2>My Tasks</h2>
+                <div class="counter">
+                    <span>Active</span>
+                    <div class="counter-number" id="activeCounter">0</div>
+                </div>
+            </div>
+
+            <ul class="tasks-list" id="tasksList">
+                <!-- Tasks will be inserted here via JavaScript -->
+            </ul>
+
+            <div id="emptyState" class="empty-list">
+                <div class="empty-icon">
+                    <i class="far fa-smile" aria-hidden="true"></i>
+                </div>
+                <h3>All caught up!</h3>
+                <p>You don't have any tasks yet. Add a new one above.</p>
+            </div>
+
+            <div class="filters">
+                <div class="filter-options">
+                    <button class="filter-btn active" data-filter="all" aria-label="Show all tasks" title="Show all tasks">All</button>
+                    <button class="filter-btn" data-filter="active" aria-label="Show active tasks" title="Show active tasks">Active</button>
+                    <button class="filter-btn" data-filter="completed" aria-label="Show completed tasks" title="Show completed tasks">Completed</button>
+                </div>
+                <button class="clear-btn" id="clearCompletedBtn" aria-label="Clear completed tasks" title="Clear completed tasks">Clear Completed</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Drag and drop to reorder tasks • Click to mark as complete</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
