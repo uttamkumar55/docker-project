@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskFlow - Beautiful To-Do App</title>
+    
+    <!-- Font Awesome from CDN is fine -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    
+    <!--  include local CSS via Flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <header>
@@ -63,6 +67,7 @@
         <p>Drag and drop to reorder tasks • Click to mark as complete</p>
     </footer>
 
-    <script src="script.js"></script>
+    <!--  include local JS via Flask -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
