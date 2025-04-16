@@ -2,16 +2,18 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'to-do-app-2025'     // You can change this to any name you want
-        DOCKER_TAG = 'latest'               // Tag can be latest or any version like 'v1.0'
+        DOCKER_IMAGE = 'to-do-app-2025'         // Your custom Docker image name
+        DOCKER_TAG = 'latest'                   // You can change this to a version like 'v1.0'
+        CONTAINER_NAME = 'loving_ardinghelli'   // Your actual Docker container name
     }
 
     stages {
+
         stage('Checkout Code') {
             steps {
-                // If Jenkins isn't pulling it already from SCM, uncomment this:
-                 git 'https://github.com/uttamkumar55/docker-project.git'
-                echo 'Code checked out automatically by Jenkins'
+                echo 'Checking out code from GitHub...'
+                git 'https://github.com/uttamkumar55/docker-project.git'
+                echo 'Code checkout complete.'
             }
         }
 
@@ -19,17 +21,27 @@ pipeline {
             steps {
                 echo 'Building Docker image...'
                 sh 'docker build -t $DOCKER_IMAGE:$DOCKER_TAG .'
+                echo "Docker image $DOCKER_IMAGE:$DOCKER_TAG built successfully."
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                echo 'Running Docker container...'
-                sh '''
-                    docker stop flask-todo-container || true
-                    docker rm flask-todo-container || true
-                    docker run -d --name flask-todo-container -p 5000:5000 $DOCKER_IMAGE:$DOCKER_TAG
-                '''
+                echo "Stopping old container if it exists: $CONTAINER_NAME"
+                sh 'docker stop $CONTAINER_NAME || true'
+
+                echo "Removing old container if it exists: $CONTAINER_NAME"
+                sh 'docker rm $CONTAINER_NAME || true'
+
+                echo "Starting new container: $CONTAINER_NAME"
+                sh """
+                    docker run -d \
+                        --name $CONTAINER_NAME \
+                        -p 5000:5000 \
+                        $DOCKER_IMAGE:$DOCKER_TAG
+                """
+
+                echo "Container $CONTAINER_NAME is now running!"
             }
         }
     }
